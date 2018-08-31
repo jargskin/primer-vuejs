@@ -5,12 +5,110 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <style>
+      .like{
+        background: green;
+        color: white;
+        padding: 20px;
+      }
+    </style>
   </head>
   <body>
+    <main>
+      <!-- Ajax y HTTP  -->
+      <h1>Listado por Ajax</h1>
+      <ol>
+        <li v-for="indicador in indicadores">
+          {{ indicador.codigo }} - {{ indicador.nombre }} - {{ indicador.valor }}
+        </li>
+      </ol>
+
+      <hr>
+      <!-- binding de clases -->
+      <h4>listado ordenado peliculas</h4>
+      <input type="search" v-model="busqueda" placeholder="busqueda de pelis">
+      <ol>
+        <li @click="marcar(index)" :class="{like: index == confirmado}" v-for="(fruta, index) in buscarFruta">
+          {{ fruta.nombre | mayusculas }}
+        </li>
+      </ol>
+      <hr>
+      <!-- Propiedades computadas -->
+      <h1> {{ nombreYapellidos }} </h1>
+
+      <h4>listado ordenado peliculas</h4>
+      <input type="search" v-model="busqueda" placeholder="busqueda de pelis">
+      <ol>
+        <li v-for="(fruta, index) in buscarFruta">
+          {{ fruta.nombre | mayusculas }}
+        </li>
+      </ol>
+
+      <hr>
+      <!-- Eventos -->
+      <h1>Peliculas</h1>
+      
+      <ol>
+        <li v-for="(pelicula, index) in peliculas">
+          {{ pelicula }}
+          <button @click="borrarPelicula(index)"> Eliminar Pelicula </button>
+        </li>
+      </ol>
+      <form @submit.prevent="crearPelicula()">
+        <input type="text" v-model="peliculaNueva">
+        <input type="submit" value="Guardar Pelicula">
+      </form>
+
+      <!-- 
+      <button v-on:click="crearPelicula()"> Crear Pelicula </button>
+      <button @click="borrarPelicula()"> Eliminar Pelicula </button> 
+      -->
+
+
+      <!-- interpolacion / imprimir contenido de una variable del modelo / instancia vue -->
+      <h1>{{ texto }}</h1>
+      <h2 v-text="texto"></h2>
+      <hr>
+      
+      <!-- two way data binding / enlace dato bidirecional y la reactividad -->
+      <input type="text" v-model="nombre">
+      <p>El nombre es: {{ nombre }}</p>
+      <hr>
+      
+      <!-- directivas condicionales v-if -->
+      <input type="text" v-model="nota">
+      <strong v-if="nota && nota >= 5 && nota <= 99">tu nota es mayor a 5</strong>
+      <strong v-else-if="nota && nota == 100"> Excelente </strong>
+      <span v-else> Has suspendido </span>
+      <hr>
+
+      <!-- directiva bucls v-for -->
+      <h1>Listado de Peliculas - Array</h1>
+      <ol>
+        <li v-for="pelicula in peliculas">{{ pelicula }}</li>
+      </ol>
+
+      <h1>Listado de Frutas - Array Objetos</h1>
+      <ul>
+        <li v-for="(fruta, index) in frutas">
+          {{ index }}: {{ fruta.nombre }} - {{ fruta.temporada }}
+        </li>
+      </ul>
+
+      <h1>Listado de Elementos de superFruta - Objeto</h1>
+      <ul>
+        <li v-for="(value, key, index) in superfruta">
+          {{ index }}: {{ key }} - {{ value }}
+        </li>
+      </ul>
+      <hr>
+
+      
+
+    </main>
     
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./js/main.js"></script>
   </body>
-</html>
+</html> 
